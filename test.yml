@@ -2,15 +2,17 @@
 - name: Output Automation Controller Configs
   hosts: all
   gather_facts: false
-  vars:
-    controller_hostname: "192.168.122.14"
-    controller_username: "admin"
-    controller_password: "redhat"
-    controller_oauthtoken: "{{ aap_oauthtoken | default(omit) }}"
-    controller_validate_certs: false  # <== This is the missing variable
-    controller_api_plugin: ansible.controller.controller_api
 
   pre_tasks:
+    - name: "Set required controller vars early (fixes Jinja failure)"
+      ansible.builtin.set_fact:
+        controller_hostname: "192.168.122.14"
+        controller_username: "admin"
+        controller_password: "redhat"
+        controller_validate_certs: false
+        controller_api_plugin: ansible.controller.controller_api
+      tags: always
+
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_create_secure_logging | default('false') }}"
       when: aap_oauthtoken is not defined
@@ -41,3 +43,4 @@
 
   roles:
     - infra.controller_configuration.filetree_create
+
