@@ -3,8 +3,6 @@
   hosts: all
   gather_facts: false
   vars:
-    controller_username: "{{username}}"
-    controller_password: "{{password}}"
     aap_validate_certs: "false"
     controller_validate_certs: "false"
     output_path: "/home/svc-ansibletower/AAP/export"
@@ -21,8 +19,8 @@
         - name: "Get the Authentication Token for the future requests"
           ansible.builtin.uri:
             url: "https://{{ controller_hostname }}/api/v2/tokens/"
-            user: "{{ controller_username }}"
-            password: "{{ controller_password }}"
+            user: admin
+            password: redhat
             method: POST
             force_basic_auth: true
             validate_certs: "{{ aap_validate_certs }}"
