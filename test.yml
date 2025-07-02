@@ -7,8 +7,8 @@
     controller_validate_certs: "false"
     output_path: "/home/svc-ansibletower/AAP/export"
     flatten_output: true
-    controller_api_plugin: awx.awx.controller_api
-
+    controller_api_plugin: ansible.controller.controller_api
+    
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_create_secure_logging | default('false') }}"
