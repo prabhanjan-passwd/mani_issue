@@ -5,7 +5,6 @@
   vars:
     controller_username: "{{username}}"
     controller_password: "{{password}}"
-    controller_hostname: "{{ctrlip}}"
     aap_validate_certs: "false"
     controller_validate_certs: "false"
     output_path: "/home/svc-ansibletower/AAP/export"
