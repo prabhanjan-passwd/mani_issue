@@ -3,8 +3,13 @@
   hosts: all
   gather_facts: false
   vars:
+    controller_hostname: "192.168.122.14"
+    controller_username: "admin"
+    controller_password: "redhat"
+    controller_oauthtoken: "{{ aap_oauthtoken | default(omit) }}"
+    controller_validate_certs: false  # <== This is the missing variable
     controller_api_plugin: ansible.controller.controller_api
-  
+
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_create_secure_logging | default('false') }}"
@@ -33,5 +38,6 @@
       ansible.builtin.file:
         path: /home/svc-ansibletower/AAP/export
         state: absent
+
   roles:
-     - infra.controller_configuration.filetree_create
+    - infra.controller_configuration.filetree_create
