@@ -33,7 +33,3 @@
       ansible.builtin.file:
         path: /home/svc-ansibletower/AAP/export
         state: absent
-        
-- name: final check
-  debug:
-     msg: "Success Done"
